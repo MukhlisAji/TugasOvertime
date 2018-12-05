@@ -25,10 +25,10 @@ public class sendEmail {
         try {
 
             Properties properties = new Properties();
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.ssl.enable", "true");
-            properties.put("mail.smtp.port", "465");//default port dari smptp
+            properties.put("mail.smtps.host", "smtp.gmail.com");
+            properties.put("mail.smtps.auth", "true");
+            properties.put("mail.smtps.ssl.enable", "true");
+            properties.put("mail.smtps.port", "465");//default port dari smptp
 
             Session session = Session.getInstance(properties);
             session.setDebug(true);

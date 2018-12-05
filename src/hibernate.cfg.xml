@@ -51,8 +51,7 @@ Contributor(s):
     <property name="hibernate.default_schema">Overtime</property>
     <property name="hibernate.show_sql">false</property>
     <mapping class="entities.Employee"/>
-    <mapping class="entities.Overtime"/>
     <mapping class="entities.Presence"/>
-    <mapping class="entities.Timesheet"/>
+    <mapping class="entities.Overtime"/>
   </session-factory>
 </hibernate-configuration>

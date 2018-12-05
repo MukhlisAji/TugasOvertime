@@ -34,12 +34,12 @@ public class TugasOvertime {
 //        
 //        }
         
-//        sendEmail e = new sendEmail();
+        sendEmail e = new sendEmail();
 //        
-//        System.out.println(e);
+        System.out.println(e);
 //        Employee e = (Employee) daoi.doDDL(new Employee(), "");
 
-        mail mail =  new mail(); 
+//        mail mail =  new mail(); 
         
     }
     
