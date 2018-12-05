@@ -78,8 +78,6 @@ public class Employee implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nik", fetch = FetchType.LAZY)
     private List<Presence> presenceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nik", fetch = FetchType.LAZY)
-    private List<Timesheet> timesheetList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nik", fetch = FetchType.LAZY)
     private List<Overtime> overtimeList;
 
     public Employee() {
@@ -192,15 +190,6 @@ public class Employee implements Serializable {
 
     public void setPresenceList(List<Presence> presenceList) {
         this.presenceList = presenceList;
-    }
-
-    @XmlTransient
-    public List<Timesheet> getTimesheetList() {
-        return timesheetList;
-    }
-
-    public void setTimesheetList(List<Timesheet> timesheetList) {
-        this.timesheetList = timesheetList;
     }
 
     @XmlTransient
