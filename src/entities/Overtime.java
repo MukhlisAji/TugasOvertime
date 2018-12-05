@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Overtime.findByOvertimeId", query = "SELECT o FROM Overtime o WHERE o.overtimeId = :overtimeId")
     , @NamedQuery(name = "Overtime.findByOtDuration", query = "SELECT o FROM Overtime o WHERE o.otDuration = :otDuration")
     , @NamedQuery(name = "Overtime.findByFee", query = "SELECT o FROM Overtime o WHERE o.fee = :fee")
-    , @NamedQuery(name = "Overtime.findByStatus", query = "SELECT o FROM Overtime o WHERE o.status = :status")})
+    , @NamedQuery(name = "Overtime.findByStatus", query = "SELECT o FROM Overtime o WHERE o.status = :status")
+    , @NamedQuery(name = "Overtime.findByTsFile", query = "SELECT o FROM Overtime o WHERE o.tsFile = :tsFile")})
 public class Overtime implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +45,8 @@ public class Overtime implements Serializable {
     private Long fee;
     @Column(name = "STATUS")
     private Short status;
+    @Column(name = "TS_FILE")
+    private String tsFile;
     @JoinColumn(name = "NIK", referencedColumnName = "NIK")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee nik;
@@ -88,6 +91,14 @@ public class Overtime implements Serializable {
 
     public void setStatus(Short status) {
         this.status = status;
+    }
+
+    public String getTsFile() {
+        return tsFile;
+    }
+
+    public void setTsFile(String tsFile) {
+        this.tsFile = tsFile;
     }
 
     public Employee getNik() {

@@ -5,6 +5,11 @@
  */
 package tools;
 
+import Email.mail;
+import Email.sendEmail;
+import daos.DAOInterface;
+import daos.GeneralDAO;
+import entities.Employee;
 import org.hibernate.SessionFactory;
 
 /**
@@ -19,6 +24,23 @@ public class TugasOvertime {
     public static void main(String[] args) {
         System.out.println(HibernateUtil.getSessionFactory());
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        DAOInterface daoi = new GeneralDAO(sessionFactory);
+        
+//        Employee employee = new Employee(nik, name, email, password, managerId);
+
+//        for (Object employee : daoi.doDDL(new Employee(), "")) {
+//            Employee e = (Employee) employee;
+//            System.out.println(e.getName());
+//        
+//        }
+        
+//        sendEmail e = new sendEmail();
+//        
+//        System.out.println(e);
+//        Employee e = (Employee) daoi.doDDL(new Employee(), "");
+
+        mail mail =  new mail(); 
+        
     }
     
 }
