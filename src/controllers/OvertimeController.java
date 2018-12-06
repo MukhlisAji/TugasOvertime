@@ -5,48 +5,77 @@
  */
 package controllers;
 
+import daos.DAOInterface;
+import daos.GeneralDAO;
+import entities.Employee;
 import entities.Overtime;
+import entities.Presence;
 import java.util.List;
+import org.hibernate.SessionFactory;
 
 /**
  *
  * @author Mukhlish
  */
-public class OvertimeController implements OvertimeControllerInterface{
+public class OvertimeController implements OvertimeControllerInterface {
+
+    private SessionFactory factory;
+    private DAOInterface daoi = new GeneralDAO(factory);
 
     @Override
     public List<Object> getAlls() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return daoi.doDDL(new Overtime(), "");
     }
 
     @Override
     public List<Object> search(String key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return daoi.doDDL(new Overtime(), key);
     }
 
     @Override
     public Overtime getById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Overtime) daoi.getById(new Overtime(), id);
     }
 
     @Override
-    public String insert(String NIK, String PresenceId, String OT_Duration, String Fee, String Status, String OvertimeId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public String insert(String overtimeId, String nik, String presenceId, String otDuration, String fee, String status, String tsFile) {
+        int overid = Integer.parseInt(overtimeId);
+        Employee employee = new Employee(nik);
+        Short otDur = Short.parseShort(otDuration);
+        Long fe = Long.parseLong(fee);
+        Short stat = Short.parseShort(status);
+        Presence presence = new Presence(Integer.valueOf(presenceId));
 
+        Overtime overtime = new Overtime(overid, otDur, fe, stat, tsFile, employee, presence);
+        if(daoi.doDML(new Overtime(), false)){
+            return "Berhasil menambahkan ID : " + overid;
+        }
+        return "Gagal";
+    }
+    
     @Override
-    public String update(String NIK, String PresenceId, String OT_Duration, String Fee, String Status, String OvertimeId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String update(String overtimeId, String nik, String presenceId, String otDuration, String fee, String status, String tsFile) {
+        int overid = Integer.parseInt(overtimeId);
+        Employee employee = new Employee(nik);
+        Short otDur = Short.parseShort(otDuration);
+        Long fe = Long.parseLong(fee);
+        Short stat = Short.parseShort(status);
+        Presence presence = new Presence(Integer.valueOf(presenceId));
+
+        Overtime overtime = new Overtime(overid, otDur, fe, stat, tsFile, employee, presence);
+        if(daoi.doDML(new Overtime(), false)){
+            return "Data berhasil di Update";
+        }
+        return "Gagal";
     }
 
     @Override
     public String delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int overid = Integer.parseInt(id);
+        Overtime overtime = new Overtime(overid);
+        if(daoi.doDML(new Overtime(), true)){
+            return "Data berhasil di Hapus";
+        }
+        return "Gagal";
     }
-
-    @Override
-    public List<Object> getOvertimeName(String keyword) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

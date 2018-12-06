@@ -1,3 +1,5 @@
+package jbcrypt;
+
 // Copyright (c) 2006 Damien Miller <djm@mindrot.org>
 //
 // Permission to use, copy, modify, and distribute this software for any
@@ -12,9 +14,8 @@
 // ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-package jbcrypt;
-
 import java.io.UnsupportedEncodingException;
+
 import java.security.SecureRandom;
 
 /**
@@ -58,7 +59,7 @@ import java.security.SecureRandom;
  * 10, and the valid range is 4 to 30.
  *
  * @author Damien Miller
- * @version 0.2
+ * @version 0.4
  */
 public class BCrypt {
 	// BCrypt parameters

@@ -19,5 +19,4 @@ public interface PresenceControllerInterface {
     public String insert(String NIK, String CheckIn, String CheckOut, String PresenceDate, String PresenceId);
     public String update(String NIK, String CheckIn, String CheckOut, String PresenceDate, String PresenceId);
     public String delete(String id);
-    public List<Object> getPresenceName(String keyword); 
 }

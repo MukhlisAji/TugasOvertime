@@ -5,11 +5,13 @@
  */
 package tools;
 
-import Email.mail;
 import Email.sendEmail;
+import controllers.PresenceController;
+import controllers.PresenceControllerInterface;
 import daos.DAOInterface;
 import daos.GeneralDAO;
 import entities.Employee;
+import jbcrypt.BCrypt;
 import org.hibernate.SessionFactory;
 
 /**
@@ -34,12 +36,23 @@ public class TugasOvertime {
 //        
 //        }
         
-        sendEmail e = new sendEmail();
-//        
-        System.out.println(e);
-//        Employee e = (Employee) daoi.doDDL(new Employee(), "");
+//        sendEmail e = new sendEmail();
+//                
+//        e.sent(true);
+        
+        PresenceControllerInterface pci = new PresenceController(sessionFactory);
+//        System.out.println(pci.insert("14410", "", "", "11/01/2018", "1"));
+        
+        System.out.println(pci.getById("1"));
+        Employee e = (Employee) daoi.doDDL(new Employee(nik, name, email, password, managerId), "");
+        
 
 //        mail mail =  new mail(); 
+
+//        String s = "Aji";
+//        String newJ = BCrypt.hashpw(s, BCrypt.gensalt());
+//        
+//        System.out.println(newJ);
         
     }
     

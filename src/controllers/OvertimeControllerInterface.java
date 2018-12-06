@@ -16,8 +16,7 @@ public interface OvertimeControllerInterface {
     public List<Object> getAlls();
     public List<Object> search(String key);
     public Overtime getById(String id);
-    public String insert(String NIK, String PresenceId, String OT_Duration, String Fee, String Status, String OvertimeId);
-    public String update(String NIK, String PresenceId, String OT_Duration, String Fee, String Status, String OvertimeId);
+    public String insert(String overtimeId, String nik, String presenceId, String otDuration, String fee, String status, String tsFile);
+    public String update(String overtimeId, String nik, String presenceId, String otDuration, String fee, String status, String tsFile);
     public String delete(String id);
-    public List<Object> getOvertimeName(String keyword);
 }

@@ -19,34 +19,39 @@ import javax.mail.internet.MimeMessage;
  * @author Mukhlish
  */
 public class sendEmail {
-
-    public static boolean main(String[] args) throws IOException {
-        boolean status = false;
+    
+    public void sent(boolean confirm){
+        
         try {
-
+            String text = "";
             Properties properties = new Properties();
-            properties.put("mail.smtps.host", "smtp.gmail.com");
-            properties.put("mail.smtps.auth", "true");
-            properties.put("mail.smtps.ssl.enable", "true");
-            properties.put("mail.smtps.port", "465");//default port dari smptp
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.port", "465");//default port smptp
 
             Session session = Session.getInstance(properties);
             session.setDebug(true);
 
-            MimeMessage pesan = new MimeMessage(session);
-            pesan.setFrom("Mukhlis.sant@gmail.com");//isi dengan gmail kalian sendiri, biasanya sama nanti dengan username
-            pesan.setRecipient(Message.RecipientType.TO, new InternetAddress("mukhlish.purnomo@gmail.com"));//isi dengan tujuan email
-            pesan.setSubject("Java Mail coba");
-            pesan.setText("Email dikirim menggunakan Java Mail.");
-
-            String username = "Mukhlis.sant@gmail.com"; //ganti dengan gmail kalian sendiri
-            String password = "manshurin313"; //ganti dengan password kalian sendiri
-            Transport.send(pesan, username, password);
-            status = true;
-
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom("bccamp.21@gmail.com");
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress("mukhlish.purnomo@gmail.com"));
+            message.setSubject("Overtime Confirmation");
+            if (confirm) {
+                text = "Congratulaton, your overtime request has been approved, please check the following url for the details https://www.google.com/ ";
+                System.out.println(text);
+            }else {
+                text = "Sorry, your overtime request has been denied. please recheck your application";
+                System.out.println(text);
+            }
+            message.setText(text);
+            String username = "bccamp.21@gmail.com"; 
+            String password = "!Bootcamp2018";
+            Transport.send(message, username, password);
         } catch (MessagingException ex) {
             ex.printStackTrace();
         }
-        return status;
     }
+
+  
 }

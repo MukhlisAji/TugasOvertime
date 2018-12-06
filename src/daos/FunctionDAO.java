@@ -144,12 +144,12 @@ public class FunctionDAO {
         return object;
     }
     
-    public Object login(Object entities, String Name){
+    public Object login(Object entities, String nik){
         Object object = new Object();      
 //        boolean result = false;
         String className = entities.getClass().getName();
         className = className.substring(className.lastIndexOf(".") + 1);
-        String query = ("From "+className+" WHERE Username = '"+ Name +"'");
+        String query = ("From "+className+" WHERE nik = '"+ nik +"'");
                 
         try {
             session = factory.openSession();
