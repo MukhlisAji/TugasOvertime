@@ -26,8 +26,11 @@ public class EmployeeController implements EmployeeControllerInterface{
     }
 
     public EmployeeController() {
+        
     }
-
+    public EmployeeController(SessionFactory sessionFactory) {
+        this.factory = factory;
+    }
     @Override
     public List<Object> getAlls() {
         return daoi.doDDL(new Employee(), "");
