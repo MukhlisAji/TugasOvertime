@@ -75,8 +75,8 @@ public class OvertimeController implements OvertimeControllerInterface {
         Presence presence = new Presence(Integer.valueOf(presenceId));
 
         Overtime overtime = new Overtime(overid, otDur, fe, stat, tsFile, employee, presence);
-        if(daoi.doDML(new Overtime(), false)){
-            return "Data berhasil di Update";
+        if(daoi.doDML(overtime, false)){
+            return "Berhasil memperbarui ID : " + overid;
         }
         return "Gagal";
     }

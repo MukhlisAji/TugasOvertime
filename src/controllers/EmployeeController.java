@@ -71,9 +71,17 @@ public class EmployeeController implements EmployeeControllerInterface {
 
     @Override
     public String update(String NIK, String Name, String Email, String Password, String Phone_number, String Hire_date, String Job_title, String Salary, String Manager_id, String Status) {
-        Employee employee = new Employee(NIK, Name, Email, Password, Manager_id);
-        if (daoi.doDML(employee, false)) {
-            return "Berhasil memperbarui id: " + NIK;
+        try {
+            DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+            Date dates = format.parse(Hire_date);
+            Long salary = Long.parseLong(Salary);
+            System.out.println(dates);
+            Employee employee = new Employee(NIK, Name, Email, Password, Phone_number, dates, Job_title, salary, Manager_id, Status);
+            if (daoi.doDML(employee, false)) {
+                return "Berhasil memperbarui id: " + NIK;
+            }
+        } catch (Exception e) {
+            e.getMessage();
         }
         return "Gagal";
     }

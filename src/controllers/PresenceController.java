@@ -58,48 +58,65 @@ public class PresenceController implements PresenceControllerInterface {
     }
 
     @Override
-    public boolean insert(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate) {
-        boolean hasil = false;
+    public String insert(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate) {
+        
         try {
-            int prId = Integer.parseInt(PresenceId);
             DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             Date dates = format.parse(PresenceDate);
-            Employee nik = new Employee(NIK);
-            //    Timestamp timestamp = Date.parse(CheckIn);
-            Date Cekin = format.parse(CheckIn);
-            Date CekOut = format.parse(CheckOut);
             System.out.println(dates);
-            System.out.println(CekOut);
-            System.out.println(Cekin);
-            Timestamp Checkout = new Timestamp(System.currentTimeMillis());
-            Presence presence = new Presence(prId, Cekin, CekOut, dates, nik);
-            if (daoi.doDML(presence, true)) {
+            int presentId = Integer.parseInt(PresenceId);
+            Employee nik = new Employee(NIK);
+            Timestamp cekin = new Timestamp(System.currentTimeMillis());
+            Timestamp cekout = new Timestamp(System.currentTimeMillis());
+            Presence presence = new Presence(presentId, nik, cekin, cekout, dates);
+            if (daoi.doDML(presence, false)) {
+                return "Berhasil menambahkan id: " + NIK;
             }
-            hasil = true;
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
-        return hasil;
+        return "Gagal";
+        
+//        boolean hasil = false;
+//        try {
+//            int prId = Integer.parseInt(PresenceId);
+//            DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+//            Date dates = format.parse(PresenceDate);
+//            Employee nik = new Employee(NIK);
+//            //    Timestamp timestamp = Date.parse(CheckIn);
+//            Date Cekin = format.parse(CheckIn);
+//            Date CekOut = format.parse(CheckOut);
+//            System.out.println(dates);
+//            System.out.println(CekOut);
+//            System.out.println(Cekin);
+//            Presence presence = new Presence(prId, Cekin, CekOut, dates, nik);
+//            if (daoi.doDML(presence, true)) {
+//            }
+//            hasil = true;
+//        } catch (Exception es) {
+//            es.getMessage();
+//        }
+//        return hasil;
     }
 
     @Override
     public String update(String NIK, String CheckIn, String CheckOut, String PresenceDate, String PresenceId) {
-        try {
-            int prId = Integer.parseInt(PresenceId);
+                try {
             DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             Date dates = format.parse(PresenceDate);
+            System.out.println(dates);
+            int presentId = Integer.parseInt(PresenceId);
             Employee nik = new Employee(NIK);
-            //    Timestamp timestamp = Date.parse(CheckIn);
-            Timestamp Checkin = new Timestamp(System.currentTimeMillis());
-            Timestamp Checkout = new Timestamp(System.currentTimeMillis());
-            Presence presence = new Presence(prId, Checkin, Checkout, dates, nik);
-            if (daoi.doDML(presence, true)) {
-                return "berhasi";
+            Timestamp cekin = new Timestamp(System.currentTimeMillis());
+            Timestamp cekout = new Timestamp(System.currentTimeMillis());
+            Presence presence = new Presence(presentId, nik, cekin, cekout, dates);
+            if (daoi.doDML(presence, false)) {
+                return "Berhasil menambahkan id: " + NIK;
             }
         } catch (Exception e) {
-            return "gagal";
+            e.printStackTrace();
         }
-        return null;
+        return "gagal";
     }
 
     @Override

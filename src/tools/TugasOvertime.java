@@ -46,7 +46,7 @@ public class TugasOvertime {
 //        e.sent(true);
         
         PresenceControllerInterface pci = new PresenceController(sessionFactory);
-        System.out.println(pci.insert("14410", "11/01/2018", "11/01/2018", "11/01/2018", "1"));
+        System.out.println(pci.insert("2",  "14409", "", "", "11/01/2018"));
         
 //        System.out.println(pci.getById("1"));
 //        EmployeeControllerInterface eci = new EmployeeController(sessionFactory);
