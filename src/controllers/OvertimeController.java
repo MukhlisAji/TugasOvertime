@@ -12,6 +12,7 @@ import entities.Overtime;
 import entities.Presence;
 import java.util.List;
 import org.hibernate.SessionFactory;
+import tools.HibernateUtil;
 
 /**
  *
@@ -19,8 +20,19 @@ import org.hibernate.SessionFactory;
  */
 public class OvertimeController implements OvertimeControllerInterface {
 
-    private SessionFactory factory;
+    private SessionFactory factory = HibernateUtil.getSessionFactory();
     private DAOInterface daoi = new GeneralDAO(factory);
+
+    public OvertimeController(SessionFactory factory, DAOInterface daoi) {
+        this.daoi = daoi;
+    }
+
+    public OvertimeController() {
+    }
+
+    public OvertimeController(SessionFactory sessionFactory) {
+        this.factory = factory;
+    }
 
     @Override
     public List<Object> getAlls() {
@@ -47,7 +59,7 @@ public class OvertimeController implements OvertimeControllerInterface {
         Presence presence = new Presence(Integer.valueOf(presenceId));
 
         Overtime overtime = new Overtime(overid, otDur, fe, stat, tsFile, employee, presence);
-        if(daoi.doDML(new Overtime(), false)){
+        if(daoi.doDML(overtime, false)){
             return "Berhasil menambahkan ID : " + overid;
         }
         return "Gagal";

@@ -70,6 +70,7 @@ public class Overtime implements Serializable {
         this.nik = nik;
         this.presenceId = presenceId;
     }
+    
 
     public Integer getOvertimeId() {
         return overtimeId;

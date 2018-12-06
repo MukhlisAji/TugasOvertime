@@ -58,7 +58,8 @@ public class PresenceController implements PresenceControllerInterface {
     }
 
     @Override
-    public String insert(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate) {
+    public boolean insert(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate) {
+        boolean hasil = false;
         try {
             int prId = Integer.parseInt(PresenceId);
             DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
@@ -73,12 +74,12 @@ public class PresenceController implements PresenceControllerInterface {
             Timestamp Checkout = new Timestamp(System.currentTimeMillis());
             Presence presence = new Presence(prId, Cekin, CekOut, dates, nik);
             if (daoi.doDML(presence, true)) {
-                return "berhasi";
             }
+            hasil = true;
         } catch (Exception e) {
-            return "gagal";
+            e.getMessage();
         }
-        return null;
+        return hasil;
     }
 
     @Override

@@ -95,6 +95,22 @@ public class Employee implements Serializable {
         this.managerId = managerId;
     }
 
+    public Employee(String nik, String name, String email, String password, String phoneNumber, Date hireDate, String jobTitle, Long salary, String managerId, String status) {
+        this.nik = nik;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.jobTitle = jobTitle;
+        this.salary = salary;
+        this.managerId = managerId;
+        this.status = status;
+    }
+
+    
+    
+
     public String getNik() {
         return nik;
     }

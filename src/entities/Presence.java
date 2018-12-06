@@ -46,7 +46,7 @@ public class Presence implements Serializable {
     @Column(name = "PRESENCE_ID")
     private Integer presenceId;
     @Column(name = "CHECK_IN")
-    private Serializable checkIn;
+    private Date checkIn;
     @Column(name = "CHECK_OUT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date checkOut;
@@ -66,7 +66,7 @@ public class Presence implements Serializable {
         this.presenceId = presenceId;
     }
 
-    public Presence(Integer presenceId, Serializable checkIn, Date checkOut, Date presenceDate, Employee nik) {
+    public Presence(Integer presenceId, Date checkIn, Date checkOut, Date presenceDate, Employee nik) {
         this.presenceId = presenceId;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -75,6 +75,7 @@ public class Presence implements Serializable {
     }
 
     public Presence(String id) {
+        
     }
     
 
@@ -90,7 +91,7 @@ public class Presence implements Serializable {
         return checkIn;
     }
 
-    public void setCheckIn(Serializable checkIn) {
+    public void setCheckIn(Date checkIn) {
         this.checkIn = checkIn;
     }
 
