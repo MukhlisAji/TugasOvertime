@@ -64,7 +64,7 @@ public class EmployeeController implements EmployeeControllerInterface {
                 return "Berhasil menambahkan id: " + NIK;
             }
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return "Gagal";
     }
@@ -81,7 +81,7 @@ public class EmployeeController implements EmployeeControllerInterface {
                 return "Berhasil memperbarui id: " + NIK;
             }
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return "Gagal";
     }
