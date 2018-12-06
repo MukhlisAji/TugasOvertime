@@ -5,6 +5,9 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import tools.Datas;
+
 /**
  *
  * @author yudafatah
@@ -16,6 +19,25 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        String user = Datas.getStatus();
+        
+        System.out.println(user);
+                    if((user.matches("Manager") )){
+//                        JOptionPane.showMessageDialog(null, "LOGIN Berhasil !");
+                         ManagerView mv = new ManagerView();
+                         mv.show();
+                         dskpMain.add(mv);
+                    }else if((user.matches("Admin") )){
+//                        JOptionPane.showMessageDialog(null, "LOGIN Berhasil !");
+                        AdminView av = new AdminView();
+                         av.show();
+                         dskpMain.add(av);
+                    }else{
+//                        JOptionPane.showMessageDialog(null, "LOGIN Berhasil !");
+                        EmployeeView ev = new EmployeeView();
+                         ev.show();
+                         dskpMain.add(ev);
+                    }
     }
 
     /**
@@ -27,10 +49,31 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
         dskpMain = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenu3.setText("File");
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar2.add(jMenu4);
+
+        jMenu5.setText("jMenu5");
+
+        jMenu6.setText("jMenu6");
+
+        jMenu7.setText("jMenu7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +146,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JDesktopPane dskpMain;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }

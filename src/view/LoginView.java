@@ -8,9 +8,11 @@ package view;
 import daos.DAOInterface;
 import daos.GeneralDAO;
 import entities.Employee;
+import static java.awt.SystemColor.desktop;
 import javax.swing.JOptionPane;
 import jbcrypt.BCrypt;
 import org.hibernate.SessionFactory;
+import tools.Datas;
 import tools.HibernateUtil;
 
 /**
@@ -27,9 +29,8 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
         initComponents();
-        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,12 +40,36 @@ public class LoginView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDesktopPane2 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         txtNik = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
+        jDesktopPane2.setLayout(jDesktopPane2Layout);
+        jDesktopPane2Layout.setHorizontalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane2Layout.setVerticalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,18 +134,39 @@ public class LoginView extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String nik = txtNik.getText();
         String password = txtPassword.getText();
+      
 
         if (!nik.equals("") && !password.equals("")) {
             Object o = daoi.login(new Employee(), nik);
             Employee employee = (Employee) o;
             System.out.println(employee.getPassword());
-            if (employee != null) {
+            System.out.println(employee.getStatus());
+            String name = employee.getName();
+            System.out.println(employee.getName());
+            String email = employee.getEmail();
+            String noTelp = employee.getPhoneNumber();
+//          String jobTitle = employee.getJobTitle();
+            String manager_id = employee.getManagerId();
+            String status = employee.getStatus();
+//            String password = employee.getPassword();
+            Datas.setName(name);
+            Datas.setEmail(email);
+            Datas.setNotelp(noTelp);
+            Datas.setHire_date(email);
+            Datas.setJob_title(noTelp);
+            Datas.setManager_id(manager_id);
+            Datas.setStatus(status);
+            Datas.setPassword(password);
+            Datas.setSalary(status);
+        if (employee != null) {
                 if (BCrypt.checkpw(password, employee.getPassword())) {
-                    
                     JOptionPane.showMessageDialog(null, "LOGIN Berhasil !");
                     this.setVisible(false);
+                    Datas.setNik(nik);
+                    Datas.setStatus(status);
                     MainFrame mf = new MainFrame();
                     mf.setVisible(true);
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "LOGIN Gagal !", "Message Alert",
                             JOptionPane.WARNING_MESSAGE);
@@ -171,6 +217,8 @@ public class LoginView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
