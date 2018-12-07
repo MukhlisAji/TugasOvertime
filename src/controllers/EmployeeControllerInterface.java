@@ -16,9 +16,9 @@ public interface EmployeeControllerInterface {
     public List<Object> getAlls();
     public List<Object> search(String key);
     public Employee getById(String id);
-    public String insert(String Name, String Email, String Password, String Phone_number, String Hire_date, String Job_title, String Salary, String Manager_id, String Status, String isDelete, String NIK);
-    public String update(String Name, String Email, String Password, String Phone_number, String Hire_date, String Job_title, String Salary, String Manager_id, String Status, String isDelete, String NIK);
-    public String delete(String id);
+    public Boolean insert(String nik, String name, String email, String password, String phoneNumber, String hireDate, String jobTitle, String salary, String managerId, String status);
+    public String update(String Name, String Email, String Password, String Phone_number, String Hire_date, String Job_title, String Salary, String Manager_id, String Status, String NIK);
+    public Boolean delete(String nik);
     public List<Object> getEmployeeName(String keyword);
     
 }

@@ -91,16 +91,6 @@
               </Group>
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel8" min="-2" pref="99" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtsalary" min="-2" pref="153" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel9" min="-2" pref="99" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtmanageid" min="-2" pref="153" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel10" min="-2" pref="99" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -110,6 +100,17 @@
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jLabel8" max="32767" attributes="0"/>
+                          <Component id="jLabel9" pref="99" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtmanageid" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="txtsalary" alignment="1" min="-2" pref="153" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -170,7 +171,7 @@
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtjobtitle" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -178,7 +179,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NIK                        :"/>
+        <Property name="text" type="java.lang.String" value="NIK                        "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtnik">
@@ -188,7 +189,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Name                     :"/>
+        <Property name="text" type="java.lang.String" value="Name                     "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtname">
@@ -198,7 +199,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Email                      :"/>
+        <Property name="text" type="java.lang.String" value="Email                      "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtemail">
@@ -208,7 +209,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="Password">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Password               :"/>
+        <Property name="text" type="java.lang.String" value="Password               "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtpassword">
@@ -218,7 +219,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Phone Number       :"/>
+        <Property name="text" type="java.lang.String" value="Phone Number       "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtnumberphone">
@@ -228,7 +229,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Hire Date               :"/>
+        <Property name="text" type="java.lang.String" value="Hire Date               "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txthiredate">
@@ -238,7 +239,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Job Title                 :"/>
+        <Property name="text" type="java.lang.String" value="Job Title                 "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtjobtitle">
@@ -248,7 +249,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Salary                    :"/>
+        <Property name="text" type="java.lang.String" value="Salary                    "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtsalary">
@@ -258,7 +259,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Manager ID           :"/>
+        <Property name="text" type="java.lang.String" value="Manager ID           "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtmanageid">
@@ -268,7 +269,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Status                    :"/>
+        <Property name="text" type="java.lang.String" value="Status                    "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtstatus">

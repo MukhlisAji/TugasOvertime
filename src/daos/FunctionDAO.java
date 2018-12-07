@@ -37,7 +37,7 @@ public class FunctionDAO {
      * @param isDelete
      * @return
      */
-    public boolean insertOrUpdateOrDelete(Object object,
+   public boolean insertOrUpdateOrDelete(Object object,
             boolean isDelete) {
         boolean result = false;
         try {
@@ -67,34 +67,19 @@ public class FunctionDAO {
      * @return
      */
     public List<Object> getDatas(Object entities, String key) {
-        List<Object> ent = new ArrayList<>();
+        List<Object> rs = new ArrayList<>();
+        String className = entities.getClass().getName();
+        className = className.substring(className.indexOf(".") + 1);
+        String query = "From " + className;
+
+        if (!key.equals("")) {
+            query = getQuery(entities, key, query);
+        }
+        System.out.println(query);
         try {
             session = factory.openSession();
             transaction = session.beginTransaction();
-            String className = entities.getClass().getName();
-
-            className = className.substring(className.lastIndexOf(".") + 1);
-            String query = ("From " + className);
-
-            if (key.equals("")) {
-                ent = session.createQuery(query).list();
-            } else {
-                query += (" WHERE ");
-                Short Count = 0;
-                for (Object o : entities.getClass().getDeclaredFields()) {
-                    String field = o + "";
-                    if (!field.contains("UID") && !field.contains("List")) {
-                        field = field.substring(field.lastIndexOf(".") + 1);
-                        //System.out.println(field);
-                        query += field + " LIKE '%" + key + "%' ";
-                        if (Count < entities.getClass().getDeclaredFields().length - 2) {
-                            query += "OR ";
-                        }
-                    }
-                    Count++;
-                }
-                ent = session.createQuery(query).list();
-            }
+            rs = session.createQuery(query).list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +89,22 @@ public class FunctionDAO {
         } finally {
             session.close();
         }
-        return ent;
+        return rs;
+    }
+
+    public String getQuery(Object entities, String key, String query) {
+        String className = entities.getClass().getName();
+        query += " WHERE ";
+        for (Object r : entities.getClass().getDeclaredFields()) {
+            String field = r + "";
+            if (!field.contains("UID") && !field.contains("List")) {
+                field = field.substring(field.lastIndexOf(".") + 1);
+                query += field + " LIKE '%" + key + "%' OR ";
+            }
+        }
+        query = query.substring(0, query.lastIndexOf("OR")) + " ORDER BY 1";
+
+        return query;
     }
 
     /**
@@ -112,26 +112,15 @@ public class FunctionDAO {
      * @param query
      * @return
      */
-    public Object getById(Object entities, Object id) {
-        Object object = new Object();        
-        String className = entities.getClass().getName();
-        className = className.substring(className.lastIndexOf(".") + 1);
-        String query = ("From " + className + " WHERE ");
-                
+    public Object getById(Object table, Object id) {
+        Object object = new Object();
+        String className = table.getClass().getName();
+        className = className.substring(className.indexOf(".") + 1);
+        String query = "FROM " + className + " where " + className.toLowerCase() +"Id =" + id ;
         try {
-            for (Object o : entities.getClass().getDeclaredFields()) {
-//            System.out.println(o);
-            String field = o+"";
-            if (field.contains("java.lang") && field.contains("Id")) {
-                        field = field.substring(field.lastIndexOf(".") + 1);
-//                        System.out.println(field);
-                        query += field + " = " + id;
-            }
-        }
             session = factory.openSession();
             transaction = session.beginTransaction();
-            object = session.createQuery(query)
-                    .uniqueResult();
+            object = session.createQuery(query).uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
