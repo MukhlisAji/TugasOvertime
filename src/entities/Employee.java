@@ -101,7 +101,7 @@ public class Employee implements Serializable {
         this.managerId = managerId;
     }
 
-    public Employee(String nik, String name, String email, String password, String phoneNumber, Date hireDate, String jobTitle, Long salary, String managerId, String status) {
+    public Employee(String nik, String name, String email, String password, String phoneNumber, Date hireDate, String jobTitle, Long salary, String managerId, String status, Short isDelete) {
         this.nik = nik;
         this.name = name;
         this.email = email;
@@ -112,11 +112,9 @@ public class Employee implements Serializable {
         this.salary = salary;
         this.managerId = managerId;
         this.status = status;
+        this.isDelete = isDelete;
     }
-
     
-    
-
     public String getNik() {
         return nik;
     }

@@ -48,5 +48,15 @@ public class GeneralDAO implements DAOInterface {
         return this.fdao.getById(entities, keyword);
     }
 
+    @Override
+    public Object getByNIK(Object entities, Object keyword) {
+        return this.fdao.getByNIK(entities, keyword);
+    }
+
+    @Override
+    public boolean updateStatus(String Status, String oldStatus) {
+        return this.fdao.updateStatus(Status, oldStatus);
+    }
+
 
 }

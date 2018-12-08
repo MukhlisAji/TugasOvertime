@@ -5,6 +5,8 @@
  */
 package Email;
 
+import controllers.EmployeeController;
+import controllers.EmployeeControllerInterface;
 import java.io.IOException;
 import java.util.Properties;
 import javax.mail.Message;
@@ -13,12 +15,16 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.hibernate.Hibernate;
+import org.hibernate.SessionFactory;
+import tools.HibernateUtil;
 
 /**
  *
  * @author Mukhlish
  */
 public class sendEmail {
+    private SessionFactory factory = HibernateUtil.getSessionFactory();
     
     public void sent(boolean confirm){
         
@@ -32,9 +38,11 @@ public class sendEmail {
 
             Session session = Session.getInstance(properties);
             session.setDebug(true);
+            EmployeeControllerInterface eci = new EmployeeController(factory);
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom("bccamp.21@gmail.com");
+            String email = "";
             message.setRecipient(Message.RecipientType.TO, new InternetAddress("mukhlish.purnomo@gmail.com"));
             message.setSubject("Overtime Confirmation");
             if (confirm) {

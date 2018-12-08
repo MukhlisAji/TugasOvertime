@@ -66,7 +66,7 @@ public class OvertimeController implements OvertimeControllerInterface {
     }
     
     @Override
-    public String update(String overtimeId, String nik, String presenceId, String otDuration, String fee, String status, String tsFile) {
+    public boolean update(String overtimeId, String nik, String presenceId, String otDuration, String fee, String status, String tsFile) {
         int overid = Integer.parseInt(overtimeId);
         Employee employee = new Employee(nik);
         Short otDur = Short.parseShort(otDuration);
@@ -76,9 +76,9 @@ public class OvertimeController implements OvertimeControllerInterface {
 
         Overtime overtime = new Overtime(overid, otDur, fe, stat, tsFile, employee, presence);
         if(daoi.doDML(overtime, false)){
-            return "Berhasil memperbarui ID : " + overid;
+            return true;
         }
-        return "Gagal";
+        return false;
     }
 
     @Override

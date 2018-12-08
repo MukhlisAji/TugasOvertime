@@ -16,7 +16,7 @@ public interface PresenceControllerInterface {
     public List<Object> getAlls();
     public List<Object> search(String key);
     public Presence getById(String id);
-    public String insert(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate);
-    public String update(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate);
+    public boolean insert(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate);
+    public boolean update(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate);
     public String delete(String id);
 }

@@ -7,9 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,16 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author AD
+ * @author Mukhlish
  */
 @Entity
 @Table(name = "PRESENCE")
@@ -46,27 +42,20 @@ public class Presence implements Serializable {
     @Column(name = "PRESENCE_ID")
     private Integer presenceId;
     @Column(name = "CHECK_IN")
-    private Date checkIn;
+    private String checkIn;
     @Column(name = "CHECK_OUT")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date checkOut;
+    private String checkOut;
     @Column(name = "PRESENCE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date presenceDate;
     @JoinColumn(name = "NIK", referencedColumnName = "NIK")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee nik;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "presenceId", fetch = FetchType.LAZY)
-    private List<Overtime> overtimeList;
 
     public Presence() {
     }
 
-    public Presence(Integer presenceId) {
-        this.presenceId = presenceId;
-    }
-
-    public Presence(Integer presenceId,  Employee nik, Date checkIn, Date checkOut, Date presenceDate) {
+    public Presence(Integer presenceId,  Employee nik, String checkIn, String checkOut, Date presenceDate) {
         this.presenceId = presenceId;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -74,10 +63,13 @@ public class Presence implements Serializable {
         this.nik = nik;
     }
 
+    public Presence(Integer presenceId) {
+        this.presenceId = presenceId;
+    }
+
     public Presence(String id) {
         
     }
-    
 
     public Integer getPresenceId() {
         return presenceId;
@@ -87,19 +79,19 @@ public class Presence implements Serializable {
         this.presenceId = presenceId;
     }
 
-    public Date getCheckIn() {
+    public String getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(Date checkIn) {
+    public void setCheckIn(String checkIn) {
         this.checkIn = checkIn;
     }
 
-    public Date getCheckOut() {
+    public String getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(Date checkOut) {
+    public void setCheckOut(String checkOut) {
         this.checkOut = checkOut;
     }
 
@@ -117,15 +109,6 @@ public class Presence implements Serializable {
 
     public void setNik(Employee nik) {
         this.nik = nik;
-    }
-
-    @XmlTransient
-    public List<Overtime> getOvertimeList() {
-        return overtimeList;
-    }
-
-    public void setOvertimeList(List<Overtime> overtimeList) {
-        this.overtimeList = overtimeList;
     }
 
     @Override

@@ -58,7 +58,7 @@ public class PresenceController implements PresenceControllerInterface {
     }
 
     @Override
-    public String insert(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate) {
+    public boolean insert(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate) {
         
         try {
             DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
@@ -66,16 +66,15 @@ public class PresenceController implements PresenceControllerInterface {
             System.out.println(dates);
             int presentId = Integer.parseInt(PresenceId);
             Employee nik = new Employee(NIK);
-            Timestamp cekin = new Timestamp(System.currentTimeMillis());
-            Timestamp cekout = new Timestamp(System.currentTimeMillis());
-            Presence presence = new Presence(presentId, nik, cekin, cekout, dates);
+
+            Presence presence = new Presence(presentId, nik, CheckIn, CheckOut, dates);
             if (daoi.doDML(presence, false)) {
-                return "Berhasil menambahkan id: " + NIK;
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "Gagal";
+        return false;
         
 //        boolean hasil = false;
 //        try {
@@ -100,23 +99,22 @@ public class PresenceController implements PresenceControllerInterface {
     }
 
     @Override
-    public String update(String NIK, String CheckIn, String CheckOut, String PresenceDate, String PresenceId) {
+    public boolean update(String PresenceId, String NIK, String CheckIn, String CheckOut, String PresenceDate) {
                 try {
             DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             Date dates = format.parse(PresenceDate);
             System.out.println(dates);
             int presentId = Integer.parseInt(PresenceId);
             Employee nik = new Employee(NIK);
-            Timestamp cekin = new Timestamp(System.currentTimeMillis());
-            Timestamp cekout = new Timestamp(System.currentTimeMillis());
-            Presence presence = new Presence(presentId, nik, cekin, cekout, dates);
+
+            Presence presence = new Presence(presentId, nik, CheckIn, CheckOut, dates);
             if (daoi.doDML(presence, false)) {
-                return "Berhasil menambahkan id: " + NIK;
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "gagal";
+                return false;
     }
 
     @Override
