@@ -79,8 +79,8 @@ public class SendConfrmPass {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(SendConfrmPass.getEmail()));
             message.setSubject("Overtime Confirmation");
             if (confirm) {
-                text = "Congratulations" + SendConfrmPass.getName() + ", your new account has been made. Your passsword is "
-                        +SendConfrmPass.getEnkrippass()+ ",password is privet, please change immediately https://www.google.com/ ";
+                text = "Congratulations " + SendConfrmPass.getName() + ", your new account has been made. Your passsword is "
+                        +SendConfrmPass.getEnkrippass()+ ", password is private, please change immediately https://www.google.com/ ";
                 System.out.println(text);
             }else {
                 text = "Sorry, your overtime request has been denied. please recheck your application";
