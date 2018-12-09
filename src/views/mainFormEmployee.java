@@ -17,27 +17,27 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
 import java.sql.Timestamp;
-import javafx.stage.FileChooser;
-import javax.mail.Session;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 import org.hibernate.SessionFactory;
 import tools.Datas;
 import tools.HibernateUtil;
 import javax.swing.*;
-import java.io.*;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 class mycustomFilter extends javax.swing.filechooser.FileFilter {
-    public boolean accept(File file){
+
+    @Override
+    public boolean accept(File file) {
         return file.isDirectory() || file.getAbsolutePath().endsWith(".pdf");
     }
-    public String getDescription(){
+
+    @Override
+    public String getDescription() {
         return "File pdf (*.pdf)";
     }
-    
+
 }
 
 /**
@@ -51,7 +51,6 @@ public class mainFormEmployee extends javax.swing.JFrame {
     EmployeeControllerInterface eci = new EmployeeController(factory);
     OvertimeControllerInterface oci = new OvertimeController(factory);
     JFileChooser jfc;
-    
 
     /**
      * Creates new form mainFormEmployee
@@ -59,15 +58,6 @@ public class mainFormEmployee extends javax.swing.JFrame {
     public mainFormEmployee() {
         initComponents();
 
-        txtNIK.setText(Datas.getNik());
-        txtName.setText(Datas.getName());
-        txtEmail.setText(Datas.getemail());
-        txtPhone.setText(Datas.getNotelp());
-        txtDate.setText(Datas.getHire_date());
-        txtJob.setText(Datas.geteJob_title());
-//        txt.setText(Datas.getSalary());
-        txtStatus.setText(Datas.getStatus());
-        txtManager.setText(Datas.getManager_id());
         txtNIK1.setText(Datas.getNik());
         txtName1.setText(Datas.getName());
         txtEmail1.setText(Datas.getemail());
@@ -77,6 +67,16 @@ public class mainFormEmployee extends javax.swing.JFrame {
 //        txt.setText(Datas.getSalary());
         txtStatus1.setText(Datas.getStatus());
         txtManager1.setText(Datas.getManager_id());
+        txtNIK1.setEditable(false);
+        txtName1.setEditable(false);
+        txtEmail1.setEditable(false);
+        txtManager1.setEditable(false);
+        txtPhone1.setEditable(false);
+        txtManager1.setEditable(false);
+        txtStatus1.setEditable(false);
+        txtDate1.setEditable(false);
+        txtJob1.setEditable(false);
+        txtPass1.setEditable(false);
 
         Dimension layar = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -87,12 +87,11 @@ public class mainFormEmployee extends javax.swing.JFrame {
         BindingOvertime(oci.search(txtSearch.getText()));
 
         DashboardEmp.setVisible(true);
-        ProfilEmp.setVisible(false);
         OTreq.setVisible(false);
 
     }
-    
-     public void BindingOvertime(List<Object> overtimes) {
+
+    public void BindingOvertime(List<Object> overtimes) {
         Object[] header = {"No", "Overtime_Id", "Name", "NIK", "Duration", "Fee", "Status", "Timesheet"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tblOvertime.setModel(data);
@@ -156,39 +155,21 @@ public class mainFormEmployee extends javax.swing.JFrame {
         txtJob1 = new javax.swing.JTextField();
         txtStatus1 = new javax.swing.JTextField();
         txtManager1 = new javax.swing.JTextField();
-        ProfilEmp = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        txtNIK = new javax.swing.JTextField();
-        txtName = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        txtPhone = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
-        txtJob = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        txtStatus = new javax.swing.JTextField();
-        txtManager = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        btnEditProfile = new javax.swing.JToggleButton();
+        txtPass1 = new javax.swing.JPasswordField();
         jLabel9 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        jLabel12 = new javax.swing.JLabel();
         OTreq = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOvertime = new javax.swing.JTable();
         btnBrows = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         txtSearch = new javax.swing.JTextField();
         txtDir = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnUpload = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         DasboardEmp = new javax.swing.JMenu();
-        profileEmp = new javax.swing.JMenu();
         OTReq = new javax.swing.JMenu();
         LogoutEmp = new javax.swing.JMenu();
 
@@ -201,7 +182,7 @@ public class mainFormEmployee extends javax.swing.JFrame {
 
         jLabel3.setText("Email                       :");
 
-        jLabel4.setText("Phone Number     :");
+        jLabel4.setText("Phone Number      :");
 
         jLabel5.setText("Hire date                : ");
 
@@ -209,7 +190,7 @@ public class mainFormEmployee extends javax.swing.JFrame {
 
         jLabel7.setText("Status                    :");
 
-        jLabel8.setText("Manager                : ");
+        jLabel8.setText("Manger                   :");
 
         btnCheckIn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCheckIn.setText("Check In");
@@ -225,212 +206,112 @@ public class mainFormEmployee extends javax.swing.JFrame {
             }
         });
 
+        btnEditProfile.setText("Edit Profile");
+        btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditProfileActionPerformed(evt);
+            }
+        });
+
+        txtPass1.setText("jPasswordField1");
+
+        jLabel9.setText("Change password");
+
+        jLabel12.setText("Password               :     ");
+
         javax.swing.GroupLayout DashboardEmpLayout = new javax.swing.GroupLayout(DashboardEmp);
         DashboardEmp.setLayout(DashboardEmpLayout);
         DashboardEmpLayout.setHorizontalGroup(
             DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardEmpLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
                 .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardEmpLayout.createSequentialGroup()
-                        .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
-                    .addGroup(DashboardEmpLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                    .addComponent(jLabel12)
+                    .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtNIK1)
-                        .addComponent(txtName1)
-                        .addComponent(txtPhone1)
-                        .addComponent(txtDate1)
-                        .addComponent(txtJob1)
-                        .addComponent(txtStatus1)
-                        .addComponent(txtManager1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtNIK1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtName1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPhone1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtDate1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtJob1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtStatus1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPass1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                        .addComponent(txtManager1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnEditProfile)
+                        .addComponent(txtEmail1))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addGap(93, 93, 93))
         );
         DashboardEmpLayout.setVerticalGroup(
             DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardEmpLayout.createSequentialGroup()
-                .addComponent(jSeparator2)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardEmpLayout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addComponent(txtNIK1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtName1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtJob1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtManager1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(DashboardEmpLayout.createSequentialGroup()
-                .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DashboardEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(DashboardEmpLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
+                        .addGap(52, 52, 52)
                         .addComponent(jLabel1)
                         .addGap(27, 27, 27)
                         .addComponent(jLabel2)
-                        .addGap(28, 28, 28)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel12)
+                        .addGap(44, 44, 44)
                         .addComponent(jLabel3)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel4)
                         .addGap(33, 33, 33)
-                        .addComponent(jLabel5)
+                        .addComponent(jLabel4)
                         .addGap(31, 31, 31)
-                        .addComponent(jLabel6))
+                        .addComponent(jLabel5)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel6)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel7)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(DashboardEmpLayout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
-                .addComponent(jLabel7)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel17.setText("NIK                         :");
-
-        txtNIK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNIKActionPerformed(evt);
-            }
-        });
-
-        jLabel18.setText("Name                      :");
-
-        jLabel19.setText("Email                       :");
-
-        jLabel20.setText("Phone Number       :");
-
-        jLabel21.setText("Hire date                : ");
-
-        jLabel22.setText("Job Title                 : ");
-
-        jLabel23.setText("Status                    :");
-
-        jLabel24.setText("Manager                 : ");
-
-        jLabel25.setText("Password               :");
-
-        jPasswordField1.setText("jPasswordField1");
-
-        jLabel9.setText("Change password");
-
-        jToggleButton1.setText("Edit Profile");
-
-        javax.swing.GroupLayout ProfilEmpLayout = new javax.swing.GroupLayout(ProfilEmp);
-        ProfilEmp.setLayout(ProfilEmpLayout);
-        ProfilEmpLayout.setHorizontalGroup(
-            ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProfilEmpLayout.createSequentialGroup()
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ProfilEmpLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(ProfilEmpLayout.createSequentialGroup()
-                                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(ProfilEmpLayout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)))
-                                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(ProfilEmpLayout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 66, Short.MAX_VALUE)))
+                        .addGap(0, 44, Short.MAX_VALUE)
+                        .addComponent(txtNIK1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNIK)
-                            .addComponent(txtName)
-                            .addComponent(txtEmail)
-                            .addComponent(txtPhone)
-                            .addComponent(txtDate)
-                            .addComponent(txtJob)
-                            .addComponent(txtStatus)
-                            .addComponent(txtManager, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1)))
-                    .addGroup(ProfilEmpLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jToggleButton1)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(499, 499, 499))
-        );
-        ProfilEmpLayout.setVerticalGroup(
-            ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProfilEmpLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(txtNIK, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel20)
-                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22)
-                    .addComponent(txtJob, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                    .addComponent(jLabel23))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ProfilEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24)
-                    .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jToggleButton1)
-                .addGap(17, 17, 17))
+                        .addComponent(txtName1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPass1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addGap(7, 7, 7)
+                        .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtJob1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtManager1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnEditProfile)))
+                .addContainerGap())
+            .addGroup(DashboardEmpLayout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tblOvertime.setModel(new javax.swing.table.DefaultTableModel(
@@ -453,8 +334,6 @@ public class mainFormEmployee extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("Search by Date");
-
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
@@ -467,9 +346,19 @@ public class mainFormEmployee extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Upload");
+        btnUpload.setText("Upload");
+        btnUpload.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUploadMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnUploadMouseEntered(evt);
+            }
+        });
 
         jLabel10.setText("Browse File ");
+
+        jLabel11.setText("Search by Date");
 
         javax.swing.GroupLayout OTreqLayout = new javax.swing.GroupLayout(OTreq);
         OTreq.setLayout(OTreqLayout);
@@ -478,42 +367,41 @@ public class mainFormEmployee extends javax.swing.JFrame {
             .addGroup(OTreqLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(OTreqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                     .addGroup(OTreqLayout.createSequentialGroup()
                         .addGroup(OTreqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(OTreqLayout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11)
+                                .addGap(32, 32, 32)
                                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(OTreqLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(33, 33, 33)
                                 .addGroup(OTreqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
+                                    .addComponent(btnUpload)
                                     .addGroup(OTreqLayout.createSequentialGroup()
                                         .addComponent(txtDir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnBrows)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         OTreqLayout.setVerticalGroup(
             OTreqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OTreqLayout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(OTreqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(OTreqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
                     .addComponent(txtDir, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBrows)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18))
+                    .addComponent(btnBrows))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUpload)
+                .addGap(5, 5, 5))
         );
 
         DasboardEmp.setText("Dashboard");
@@ -528,19 +416,6 @@ public class mainFormEmployee extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(DasboardEmp);
-
-        profileEmp.setText("Profile");
-        profileEmp.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                profileEmpMouseClicked(evt);
-            }
-        });
-        profileEmp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profileEmpActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(profileEmp);
 
         OTReq.setText("Overtime");
         OTReq.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -564,33 +439,29 @@ public class mainFormEmployee extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 997, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(DashboardEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(ProfilEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 835, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(DashboardEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(OTreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 515, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(DashboardEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 65, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(ProfilEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 69, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(OTreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(41, Short.MAX_VALUE)
+                    .addComponent(OTreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(41, Short.MAX_VALUE)))
         );
 
         pack();
@@ -599,10 +470,6 @@ public class mainFormEmployee extends javax.swing.JFrame {
     private void DasboardEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DasboardEmpActionPerformed
 
     }//GEN-LAST:event_DasboardEmpActionPerformed
-
-    private void profileEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileEmpActionPerformed
-
-    }//GEN-LAST:event_profileEmpActionPerformed
 
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
         String NIK = Datas.getNik();
@@ -619,6 +486,7 @@ public class mainFormEmployee extends javax.swing.JFrame {
         int autiID = pci.getAlls().size() + 104;
         String ID = String.valueOf(autiID);
         System.out.println(ID);
+        Datas.setIdPresence(ID);
         if (btnCheckIn.isSelected()) {
 
             System.out.println(ID + NIK + times + null + dates);
@@ -630,13 +498,16 @@ public class mainFormEmployee extends javax.swing.JFrame {
             btnCheckIn.setText("Check Out");
         } else {
 
+            OvertimeForm overtimeForm = new OvertimeForm();
+            overtimeForm.show();
             int Id = autiID - 1;
             String IDnew = String.valueOf(Id);
             Presence pi = pci.getById(IDnew);
             String cekin = pi.getCheckIn();
             System.out.println(IDnew);
+
             if (pci.update(IDnew, NIK, cekin, times, hasil)) {
-                JOptionPane.showMessageDialog(null, "Check Out succes");
+//                JOptionPane.showMessageDialog(null, "Check Out succes");
             } else {
                 JOptionPane.showMessageDialog(null, "Check Out Failled!");
             }
@@ -647,24 +518,13 @@ public class mainFormEmployee extends javax.swing.JFrame {
 
     private void DasboardEmpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DasboardEmpMouseClicked
         DashboardEmp.setVisible(true);
-        ProfilEmp.setVisible(false);
         OTreq.setVisible(false);
     }//GEN-LAST:event_DasboardEmpMouseClicked
 
-    private void profileEmpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileEmpMouseClicked
-        DashboardEmp.setVisible(false);
-        ProfilEmp.setVisible(true);
-        OTreq.setVisible(false);
-    }//GEN-LAST:event_profileEmpMouseClicked
-
-    private void txtNIKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNIKActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNIKActionPerformed
-
     private void OTReqMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OTReqMouseClicked
         DashboardEmp.setVisible(false);
-        ProfilEmp.setVisible(false);
         OTreq.setVisible(true);
+        BindingOvertime(oci.search(txtSearch.getText()));
 
     }//GEN-LAST:event_OTReqMouseClicked
 
@@ -697,9 +557,9 @@ public class mainFormEmployee extends javax.swing.JFrame {
             jfc = new JFileChooser();
             jfc.addChoosableFileFilter(new mycustomFilter());
             jfc.setAcceptAllFileFilterUsed(false);
-            
+
         }
-        
+
         int returnfVal = jfc.showOpenDialog(mainFormEmployee.this);
         if (returnfVal == JFileChooser.APPROVE_OPTION) {
             File file = jfc.getSelectedFile();
@@ -716,6 +576,96 @@ public class mainFormEmployee extends javax.swing.JFrame {
         BindingOvertime(oci.search(txtSearch.getText()));
     }//GEN-LAST:event_txtSearchKeyReleased
 
+    private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
+                if (btnEditProfile.isSelected()) {
+            txtNIK1.setEditable(false);
+            txtName1.setEditable(false);
+            txtEmail1.setEditable(true);
+            txtManager1.setEditable(false);
+            txtPhone1.setEditable(true);
+            txtStatus1.setEditable(false);
+            txtDate1.setEditable(false);
+            txtJob1.setEditable(false);
+            txtPass1.setEditable(false);
+
+            btnEditProfile.setText("Save");
+        } else {
+            String NIK = Datas.getNik();
+            String Name = Datas.getName();
+            String email = txtEmail1.getText();
+            String Password = Datas.getPassword();
+            String Phone = txtPhone1.getText();
+            String hireDate = txtDate1.getText();
+            String Job = Datas.geteJob_title();
+            String Status = Datas.getStatus();
+            String Manager = Datas.getManager_id();
+            String Salary = Datas.getSalary();
+            String isDel = Datas.getIsDelete();
+
+
+            if (!email.equals("") && !Phone.equals("")) {
+                if (eci.update(Name, email, Password, Phone, hireDate, Job, Salary, Manager, Status, isDel, NIK)) {
+                    JOptionPane.showMessageDialog(null, "insert berhasil");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "insert gagal");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "form input tidak boleh kosong");
+            }
+            txtNIK1.setEditable(false);
+            txtName1.setEditable(false);
+            txtEmail1.setEditable(false);
+            txtManager1.setEditable(false);
+            txtPhone1.setEditable(false);
+            txtManager1.setEditable(false);
+            txtStatus1.setEditable(false);
+            txtDate1.setEditable(false);
+            txtJob1.setEditable(false);
+            txtPass1.setEditable(false);
+            btnEditProfile.setText("Edit Profile");
+        }
+    }//GEN-LAST:event_btnEditProfileActionPerformed
+
+    private void btnUploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUploadMouseClicked
+
+        int i = tblOvertime.getSelectedRow();
+        TableModel model = tblOvertime.getModel();
+        String ID = (String) model.getValueAt(i, 1);
+        String NIK = model.getValueAt(i, 3).toString();
+        Overtime overtime = (Overtime) oci.getById((String) model.getValueAt(i, 1));
+        String IDpresence = String.valueOf(overtime.getPresenceId().getPresenceId());
+
+        String path = txtDir.getText();
+        String Duration = model.getValueAt(i, 4).toString();
+
+        String Fee = model.getValueAt(i, 5).toString();
+        String Status = model.getValueAt(i, 6).toString();
+        
+        if (Status.matches("request")) {
+            Status = "0";
+        } else if (Status.matches("Approved")) {
+            Status = "1";
+        } else if (Status.matches("rejected")) {
+            Status = "2";
+        }
+
+        if (oci.update(ID, NIK, IDpresence, Duration, Fee, Status, path)) {
+            JOptionPane.showMessageDialog(null, "Succes");
+            txtDir.setText("");
+            BindingOvertime(oci.search(txtSearch.getText()));
+            //JOptionPane.showMessageDialog(null, "Check Out succes");
+            //employeeid_field.setText(employeeController.lastId());
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed");
+        }
+    }//GEN-LAST:event_btnUploadMouseClicked
+
+    private void btnUploadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUploadMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUploadMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -730,16 +680,24 @@ public class mainFormEmployee extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainFormEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mainFormEmployee.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainFormEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mainFormEmployee.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainFormEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mainFormEmployee.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainFormEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mainFormEmployee.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -757,22 +715,15 @@ public class mainFormEmployee extends javax.swing.JFrame {
     private javax.swing.JMenu LogoutEmp;
     private javax.swing.JMenu OTReq;
     private javax.swing.JPanel OTreq;
-    private javax.swing.JPanel ProfilEmp;
     private javax.swing.JButton btnBrows;
     private javax.swing.JToggleButton btnCheckIn;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JToggleButton btnEditProfile;
+    private javax.swing.JButton btnUpload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -781,31 +732,20 @@ public class mainFormEmployee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JMenu profileEmp;
     private javax.swing.JTable tblOvertime;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtDate1;
     private javax.swing.JTextField txtDir;
-    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmail1;
-    private javax.swing.JTextField txtJob;
     private javax.swing.JTextField txtJob1;
-    private javax.swing.JTextField txtManager;
     private javax.swing.JTextField txtManager1;
-    private javax.swing.JTextField txtNIK;
     private javax.swing.JTextField txtNIK1;
-    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtName1;
-    private javax.swing.JTextField txtPhone;
+    private javax.swing.JPasswordField txtPass1;
     private javax.swing.JTextField txtPhone1;
     private javax.swing.JTextField txtSearch;
-    private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtStatus1;
     // End of variables declaration//GEN-END:variables
 }

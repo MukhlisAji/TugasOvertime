@@ -6,6 +6,8 @@
 package views;
 
 import Email.sendEmail;
+import controllers.EmployeeController;
+import controllers.EmployeeControllerInterface;
 import controllers.OvertimeController;
 import controllers.OvertimeControllerInterface;
 import entities.Overtime;
@@ -17,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
+import tools.Datas;
 import tools.HibernateUtil;
 
 /**
@@ -24,8 +27,10 @@ import tools.HibernateUtil;
  * @author Mukhlish
  */
 public class mainFormManager extends javax.swing.JFrame {
+
     SessionFactory factory = HibernateUtil.getSessionFactory();
     OvertimeControllerInterface oci = new OvertimeController(factory);
+    EmployeeControllerInterface eci = new EmployeeController(factory);
 
     /**
      * Creates new form mainFormManager
@@ -40,13 +45,34 @@ public class mainFormManager extends javax.swing.JFrame {
         int y = layar.height / 2 - this.getSize().height / 2;
 
         this.setLocation(x, y);
-        
+
         BindingOvertime(oci.search(txtSearch.getText()));
-        
+
         txtNIK.setEditable(false);
         txtName.setEditable(false);
         txtFee.setEditable(false);
         txtDuration.setEditable(false);
+
+        txtNIK1.setText(Datas.getNik());
+        txtName1.setText(Datas.getName());
+        txtEmail1.setText(Datas.getemail());
+        txtPhone1.setText(Datas.getNotelp());
+        txtDate1.setText(Datas.getHire_date());
+        txtJob1.setText(Datas.geteJob_title());
+//        txt.setText(Datas.getSalary());
+        txtStatus1.setText(Datas.getStatus());
+        txtManager1.setText(Datas.getManager_id());
+
+        txtNIK1.setEditable(false);
+        txtName1.setEditable(false);
+        txtEmail1.setEditable(false);
+        txtManager1.setEditable(false);
+        txtPhone1.setEditable(false);
+        txtManager1.setEditable(false);
+        txtStatus1.setEditable(false);
+        txtDate1.setEditable(false);
+        txtJob1.setEditable(false);
+        txtPass1.setEditable(false);
     }
 
     public void BindingOvertime(List<Object> overtimes) {
@@ -95,6 +121,26 @@ public class mainFormManager extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         DashboardManager = new javax.swing.JPanel();
+        txtNIK1 = new javax.swing.JTextField();
+        txtName1 = new javax.swing.JTextField();
+        txtPass1 = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
+        txtEmail1 = new javax.swing.JTextField();
+        txtPhone1 = new javax.swing.JTextField();
+        txtDate1 = new javax.swing.JTextField();
+        txtJob1 = new javax.swing.JTextField();
+        txtStatus1 = new javax.swing.JTextField();
+        txtManager1 = new javax.swing.JTextField();
+        btnEditProfile = new javax.swing.JToggleButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         OTRequest = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOvertime = new javax.swing.JTable();
@@ -120,15 +166,123 @@ public class mainFormManager extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.CardLayout());
 
+        txtNIK1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNIK1ActionPerformed(evt);
+            }
+        });
+
+        txtPass1.setText("jPasswordField1");
+
+        jLabel9.setText("Change password");
+
+        btnEditProfile.setText("Edit Profile");
+        btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditProfileActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Manger                   :");
+
+        jLabel7.setText("Status                    :");
+
+        jLabel13.setText("Job Title                 : ");
+
+        jLabel14.setText("Hire date                : ");
+
+        jLabel15.setText("Phone Number      :");
+
+        jLabel16.setText("Email                       :");
+
+        jLabel12.setText("Password               :     ");
+
+        jLabel17.setText("Name                      :");
+
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel18.setText("NIK                         :");
+
         javax.swing.GroupLayout DashboardManagerLayout = new javax.swing.GroupLayout(DashboardManager);
         DashboardManager.setLayout(DashboardManagerLayout);
         DashboardManagerLayout.setHorizontalGroup(
             DashboardManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 947, Short.MAX_VALUE)
+            .addGroup(DashboardManagerLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(DashboardManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addGroup(DashboardManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8))
+                .addGap(34, 34, 34)
+                .addGroup(DashboardManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(DashboardManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtNIK1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtName1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPhone1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtDate1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtJob1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtStatus1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPass1)
+                        .addComponent(txtManager1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnEditProfile)
+                        .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(493, Short.MAX_VALUE))
         );
         DashboardManagerLayout.setVerticalGroup(
             DashboardManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
+            .addGroup(DashboardManagerLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(DashboardManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardManagerLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel18)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel17)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel12)
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel16)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel15)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel14)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel13)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel7)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardManagerLayout.createSequentialGroup()
+                        .addComponent(txtNIK1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtName1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPass1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addGap(7, 7, 7)
+                        .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtJob1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtManager1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEditProfile)
+                        .addGap(7, 7, 7))))
         );
 
         jPanel1.add(DashboardManager, "card2");
@@ -300,7 +454,7 @@ public class mainFormManager extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 422, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -400,6 +554,62 @@ public class mainFormManager extends javax.swing.JFrame {
         BindingOvertime(oci.search(txtSearch.getText()));
     }//GEN-LAST:event_txtSearchKeyReleased
 
+    private void txtNIK1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNIK1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNIK1ActionPerformed
+
+    private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
+        if (btnEditProfile.isSelected()) {
+            txtNIK1.setEditable(false);
+            txtName1.setEditable(false);
+            txtEmail1.setEditable(true);
+            txtManager1.setEditable(false);
+            txtPhone1.setEditable(true);
+            txtStatus1.setEditable(false);
+            txtDate1.setEditable(false);
+            txtJob1.setEditable(false);
+            txtPass1.setEditable(false);
+
+            btnEditProfile.setText("Save");
+        } else {
+            String NIK = Datas.getNik();
+            String Name = Datas.getName();
+            String email = txtEmail1.getText();
+            String Password = Datas.getPassword();
+            String Phone = txtPhone1.getText();
+            String hireDate = txtDate1.getText();
+            String Job = Datas.geteJob_title();
+            String Status = Datas.getStatus();
+            String Manager = Datas.getManager_id();
+            String Salary = Datas.getSalary();
+            String isDel = Datas.getIsDelete();
+
+
+            if (!email.equals("") && !Phone.equals("")) {
+                if (eci.update(Name, email, Password, Phone, hireDate, Job, Salary, Manager, Status, isDel, NIK)) {
+                    JOptionPane.showMessageDialog(null, "insert berhasil");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "insert gagal");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "form input tidak boleh kosong");
+            }
+            txtNIK1.setEditable(false);
+            txtName1.setEditable(false);
+            txtEmail1.setEditable(false);
+            txtManager1.setEditable(false);
+            txtPhone1.setEditable(false);
+            txtManager1.setEditable(false);
+            txtStatus1.setEditable(false);
+            txtDate1.setEditable(false);
+            txtJob1.setEditable(false);
+            txtPass1.setEditable(false);
+            btnEditProfile.setText("Edit Profile");
+        }
+    }//GEN-LAST:event_btnEditProfileActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -439,24 +649,44 @@ public class mainFormManager extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardManager;
     private javax.swing.JMenu LogOutManager;
     private javax.swing.JPanel OTRequest;
+    private javax.swing.JToggleButton btnEditProfile;
     private javax.swing.JButton btnSaveApprove;
     private javax.swing.JComboBox<String> cmbApprove;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu managerDash;
     private javax.swing.JMenu reqOT;
     private javax.swing.JTable tblOvertime;
+    private javax.swing.JTextField txtDate1;
     private javax.swing.JTextField txtDuration;
+    private javax.swing.JTextField txtEmail1;
     private javax.swing.JTextField txtFee;
+    private javax.swing.JTextField txtJob1;
+    private javax.swing.JTextField txtManager1;
     private javax.swing.JTextField txtNIK;
+    private javax.swing.JTextField txtNIK1;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtName1;
+    private javax.swing.JPasswordField txtPass1;
+    private javax.swing.JTextField txtPhone1;
     private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtStatus1;
     // End of variables declaration//GEN-END:variables
 }

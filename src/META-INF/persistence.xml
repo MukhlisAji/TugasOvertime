@@ -8,6 +8,8 @@
     <class>entities.Presence</class>
     <class>Employee</class>
     <class>entities.Employee_1</class>
+    <class>entities.Parameter</class>
+    <class>entities.Role</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <property name="javax.persistence.jdbc.user" value="Overtime"/>

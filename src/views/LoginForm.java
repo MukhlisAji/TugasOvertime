@@ -18,7 +18,6 @@ import org.hibernate.SessionFactory;
 import tools.Datas;
 import tools.HibernateUtil;
 
-
 /**
  *
  * @author Mukhlish
@@ -141,16 +140,26 @@ public class LoginForm extends javax.swing.JFrame {
             String status = employee.getStatus();
             String Salary = String.valueOf(employee.getSalary());
             String Job = employee.getJobTitle();
+            String Date = String.valueOf(employee.getHireDate());
+            String Dates = Date.substring(0, 10);
+            String hasilDate = "";
+            String[] c = Dates.split("-");
+            for (int i = 0; i < c.length; i++) {
+                hasilDate = c[1] + "/" + c[2] + "/" + c[0];
+            }
+            
+            String isDel = String.valueOf(employee.getIsDelete());
             Datas.setNik(nik);
             Datas.setName(name);
             Datas.setEmail(email);
             Datas.setNotelp(noTelp);
-            Datas.setHire_date(email);
+            Datas.setHire_date(hasilDate);
             Datas.setJob_title(Job);
             Datas.setManager_id(manager_id);
             Datas.setStatus(status);
             Datas.setPassword(password);
             Datas.setSalary(Salary);
+            Datas.setIsDelete(isDel);
             if (employee != null) {
                 if (BCrypt.checkpw(password, employee.getPassword())) {
                     String user = Datas.getStatus();
@@ -168,7 +177,7 @@ public class LoginForm extends javax.swing.JFrame {
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Hai " + username + " You are loging in as an Employee");
-                        mainFormEmployee formEmployee =  new mainFormEmployee();
+                        mainFormEmployee formEmployee = new mainFormEmployee();
                         formEmployee.show();
 
                     }

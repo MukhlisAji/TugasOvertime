@@ -9,6 +9,8 @@ import controllers.EmployeeController;
 import controllers.EmployeeControllerInterface;
 import controllers.OvertimeController;
 import controllers.OvertimeControllerInterface;
+import controllers.ParameterController;
+import controllers.ParameterControllerInterface;
 import controllers.PresenceController;
 import controllers.PresenceControllerInterface;
 import daos.DAOInterface;
@@ -36,11 +38,12 @@ public class TugasOvertime {
         EmployeeControllerInterface eci = new EmployeeController(sessionFactory);
         OvertimeControllerInterface oci = new OvertimeController(sessionFactory);
         PresenceControllerInterface pci = new PresenceController(sessionFactory);
+        ParameterControllerInterface parameterControllerInterface = new ParameterController(sessionFactory);
 
 //        eci.delete("14410");
 //        System.out.println(gdao.updateStatus("1", "0"));
-        int autiID = pci.getAlls().size() + 101;
-        System.out.println(autiID);
+//        int autiID = pci.getAlls().size() + 101;
+//        System.out.println(autiID);
 
 //        for (Object all : eci.getAlls()) {
 //            Employee e1 = (Employee) all;
@@ -64,9 +67,9 @@ public class TugasOvertime {
 //    
 //        System.out.println(neep);
 //              eci.update("14410", "Ajis", "Ajiaji.com", "$2a$10$wXE3Zz8ZU0enhJlYWQzsD.gp4xkfwSrVROCIMPP0I3Xs1zVLt0Rpu", "08992013", "11/21/2011", "Helper", "10000", "123", "0");
-Presence p = pci.getById("104");
-        System.out.println(p.getCheckIn());
-//Presence p = pci.getById("3");
+//Presence p = pci.getById("104");
+//        System.out.println(p.getCheckIn());
+////Presence p = pci.getById("3");
 //        System.out.println(p.getCheckIn());
 //pci.update("3", "14413", "12/07/2018 11:04:30.403000 AM ASIA/BANGKOK", "12/07/2018", "09/09/2018");
 //
@@ -76,5 +79,15 @@ Presence p = pci.getById("104");
 //        String dates1 = time.substring(11, 19);
 //        System.out.println(dates1);
 
+//OvertimeControllerInterface oci1 = new OvertimeController(sessionFactory);
+//oci.insert("5", "14413", "124", "3", "30000.00", "0", "da");
+
+
+        Long percent = parameterControllerInterface.getById("2").getValue();
+        double perc = Double.valueOf(percent.doubleValue());
+//        int dura = Integer.parseInt(Duration);
+        Long salary = eci.getByNIK("14413").getSalary()/30;
+        int hasil = (int) (((perc / 100) * salary )* 2);
+        System.out.println(hasil);
     }
 }

@@ -54,5 +54,7 @@ Contributor(s):
     <mapping class="entities.Employee"/>
     <mapping class="entities.Overtime"/>
     <mapping class="entities.Presence"/>
+    <mapping class="entities.Parameter"/>
+    <mapping class="entities.Role"/>
   </session-factory>
 </hibernate-configuration>

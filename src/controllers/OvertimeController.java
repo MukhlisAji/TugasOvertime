@@ -50,19 +50,18 @@ public class OvertimeController implements OvertimeControllerInterface {
     }
 
     @Override
-    public String insert(String overtimeId, String nik, String presenceId, String otDuration, String fee, String status, String tsFile) {
+    public boolean insert(String overtimeId, String nik, String presenceId, String otDuration, String fee, String status, String tsFile) {
         int overid = Integer.parseInt(overtimeId);
         Employee employee = new Employee(nik);
         Short otDur = Short.parseShort(otDuration);
         Long fe = Long.parseLong(fee);
         Short stat = Short.parseShort(status);
         Presence presence = new Presence(Integer.valueOf(presenceId));
-
         Overtime overtime = new Overtime(overid, otDur, fe, stat, tsFile, employee, presence);
         if(daoi.doDML(overtime, false)){
-            return "Berhasil menambahkan ID : " + overid;
+            return true;
         }
-        return "Gagal";
+        return false;
     }
     
     @Override
