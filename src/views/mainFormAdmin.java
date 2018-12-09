@@ -5,6 +5,7 @@
  */
 package views;
 
+import Email.SendConfrmPass;
 import Email.sendEmail;
 import controllers.EmployeeController;
 import controllers.EmployeeControllerInterface;
@@ -23,6 +24,8 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import jbcrypt.BCrypt;
+import static jdk.nashorn.internal.objects.NativeString.substr;
 import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
 
@@ -529,10 +532,19 @@ public class mainFormAdmin extends javax.swing.JFrame {
 
         String name = txtName.getText();
         String email = txtEmail.getText();
+        
 //        String password = txtpassword.getText();
-        String password = "buat password baru";
-
         String phonenumber = txtPhone.getText();
+        String balik= String.valueOf( new StringBuffer(phonenumber).reverse()) ;
+        String potong = substr(balik, 0 ,4);
+        String phnum= String.valueOf( new StringBuffer(potong).reverse()) ;
+        String enkrippass = nik.concat(phnum);
+        System.out.println(enkrippass);
+        String password = BCrypt.hashpw(enkrippass, BCrypt.gensalt());
+        System.out.println(password);
+        SendConfrmPass.setEnkrippass(enkrippass);
+        SendConfrmPass.setName(name);
+        
         Date hiredate = hireDate.getDate();
         String dates = format.format(hiredate);
         String jobtitle = txtJob.getText();
@@ -553,7 +565,8 @@ public class mainFormAdmin extends javax.swing.JFrame {
 //                txtnik.setEnabled(false);
                 btnSave.setEnabled(false);
                 reset();
-                sendEmail e = new sendEmail();
+                SendConfrmPass.setEmail(email);
+                SendConfrmPass e = new SendConfrmPass();
                 e.sent(true);
                 //employeeid_field.setText(employeeController.lastId());
             } else {
