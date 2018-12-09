@@ -14,6 +14,8 @@ import entities.Employee;
 import entities.Overtime;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +27,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
-
 
 /**
  *
@@ -96,8 +97,8 @@ public class mainFormAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Oops! : " + e.getMessage());
         }
     }
-    
-     public void BindingOvertime(List<Object> overtimes) {
+
+    public void BindingOvertime(List<Object> overtimes) {
         Object[] header = {"No", "Overtime_Id", "Name", "NIK", "Duration", "Fee", "Status", "Timesheet"};
         DefaultTableModel data = new DefaultTableModel(null, header);
         tblOvertime.setModel(data);
@@ -131,7 +132,6 @@ public class mainFormAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ckck" + e.getMessage());
         }
     }
-
 
     public void reset() {
         txtNIK.setText("");
@@ -185,6 +185,8 @@ public class mainFormAdmin extends javax.swing.JFrame {
         btnReset = new javax.swing.JButton();
         hireDate = new org.jdesktop.swingx.JXDatePicker();
         cmbStatus = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         PanelOvertimeData = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblOvertime = new javax.swing.JTable();
@@ -192,6 +194,7 @@ public class mainFormAdmin extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         profilManage = new javax.swing.JMenu();
         OvertimeData = new javax.swing.JMenu();
@@ -200,6 +203,8 @@ public class mainFormAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.CardLayout());
+
+        PanelProfilManage.setName(""); // NOI18N
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -222,6 +227,18 @@ public class mainFormAdmin extends javax.swing.JFrame {
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
+            }
+        });
+
+        txtmanager.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtmanagerKeyTyped(evt);
+            }
+        });
+
+        txtPhone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPhoneKeyTyped(evt);
             }
         });
 
@@ -250,6 +267,12 @@ public class mainFormAdmin extends javax.swing.JFrame {
         jLabel24.setText("Status                   :");
 
         jLabel1.setText("Salary                    :");
+
+        txtSalary.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSalaryKeyTyped(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -281,6 +304,12 @@ public class mainFormAdmin extends javax.swing.JFrame {
 
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager", "Employee", "Admin" }));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setText("Employees Table");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Admin Profile");
+
         javax.swing.GroupLayout PanelProfilManageLayout = new javax.swing.GroupLayout(PanelProfilManage);
         PanelProfilManage.setLayout(PanelProfilManageLayout);
         PanelProfilManageLayout.setHorizontalGroup(
@@ -288,25 +317,29 @@ public class mainFormAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelProfilManageLayout.createSequentialGroup()
                 .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PanelProfilManageLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGap(18, 18, 18)
                         .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(PanelProfilManageLayout.createSequentialGroup()
-                                .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(PanelProfilManageLayout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelProfilManageLayout.createSequentialGroup()
+                                .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(PanelProfilManageLayout.createSequentialGroup()
                                             .addGap(1, 1, 1)
-                                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
-                                        .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
-                                    .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelProfilManageLayout.createSequentialGroup()
+                                                .addGap(1, 1, 1)
+                                                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                                        .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(PanelProfilManageLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(26, 26, 26)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -335,18 +368,25 @@ public class mainFormAdmin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelProfilManageLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(119, 119, 119)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         PanelProfilManageLayout.setVerticalGroup(
             PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelProfilManageLayout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelProfilManageLayout.createSequentialGroup()
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelProfilManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelProfilManageLayout.createSequentialGroup()
@@ -395,6 +435,7 @@ public class mainFormAdmin extends javax.swing.JFrame {
         );
 
         jPanel1.add(PanelProfilManage, "card2");
+        PanelProfilManage.getAccessibleContext().setAccessibleName("ADMIN");
 
         tblOvertime.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -413,34 +454,43 @@ public class mainFormAdmin extends javax.swing.JFrame {
 
         jLabel3.setText("Search by NIK");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setText("Overtime Record");
+
         javax.swing.GroupLayout PanelOvertimeDataLayout = new javax.swing.GroupLayout(PanelOvertimeData);
         PanelOvertimeData.setLayout(PanelOvertimeDataLayout);
         PanelOvertimeDataLayout.setHorizontalGroup(
             PanelOvertimeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelOvertimeDataLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(544, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(PanelOvertimeDataLayout.createSequentialGroup()
+                .addGroup(PanelOvertimeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelOvertimeDataLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6))
+                    .addGroup(PanelOvertimeDataLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(544, Short.MAX_VALUE))
         );
         PanelOvertimeDataLayout.setVerticalGroup(
             PanelOvertimeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelOvertimeDataLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(PanelOvertimeDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(PanelOvertimeData, "card3");
@@ -632,25 +682,22 @@ public class mainFormAdmin extends javax.swing.JFrame {
         JDialog.setDefaultLookAndFeelDecorated(true);
         option = JOptionPane.showConfirmDialog(null, "Confirm delete !",
                 "Warning", JOptionPane.YES_NO_OPTION);
-        
-        
-        
+
         if (option == JOptionPane.YES_OPTION) {
             if (eci.update(name, email, password, phonenumber, dates, jobtitle, salary, manager, status, is_delete, nik)) {
-            JOptionPane.showMessageDialog(null, "Delete berhasil");
-            String autiID = String.valueOf(eci.getAlls().size() + 14407);
-            //kosongData();
-            bindingTable(eci.search(""));
+                JOptionPane.showMessageDialog(null, "Delete berhasil");
+                String autiID = String.valueOf(eci.getAlls().size() + 14407);
+                //kosongData();
+                bindingTable(eci.search(""));
 //                txtnik.setEnabled(false);
-            btnSave.setEnabled(false);
-            reset();
-            //employeeid_field.setText(employeeController.lastId());
-        } else {
-            JOptionPane.showMessageDialog(null, "Delete gagal");
-        }
+                btnSave.setEnabled(false);
+                reset();
+                //employeeid_field.setText(employeeController.lastId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Delete gagal");
+            }
 
         } else if (option == JOptionPane.NO_OPTION) {
-
 
         }
 
@@ -675,6 +722,42 @@ public class mainFormAdmin extends javax.swing.JFrame {
         } else {
         }
     }//GEN-LAST:event_LogoutAdminMouseClicked
+
+    private void txtPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneKeyTyped
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+        if (txtPhone.getText().length() >= 13) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPhoneKeyTyped
+
+    private void txtmanagerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmanagerKeyTyped
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+        if (txtmanager.getText().length() >= 6) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtmanagerKeyTyped
+
+    private void txtSalaryKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalaryKeyTyped
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+        if (txtSalary.getText().length() >= 9) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSalaryKeyTyped
 
     /**
      * @param args the command line arguments
@@ -741,6 +824,9 @@ public class mainFormAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
